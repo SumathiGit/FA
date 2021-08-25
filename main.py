@@ -31,12 +31,12 @@ async def redis_keys():
     return await get_all()
 
 #we can set a value for a key 
-@app.get('/Firstpage')
+@app.get('/create_keyValue')
 async def set(key, value):
         return await redis_cache.set(key, value)
 
 #we can get the value for a particular key
-@app.get('/Secondpage')
+@app.get('/GetValue4Key')
 async def get(key):
         return await redis_cache.get(key)
 
@@ -61,24 +61,10 @@ async def get(key):
         return await redis_cache.hvals(key)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#hash >> get value using Field name
+@app.get("/get_particular_hashvalue")
+async def get(key, field):
+        return await redis_cache.hget(key, field)
 
 
 
