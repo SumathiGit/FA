@@ -31,7 +31,7 @@ async def redis_keys():
     return await get_all()
 
 #we can set a value for a key 
-@app.get('/create_keyValue')
+@app.post('/create_keyValue')
 async def set(key, value):
         return await redis_cache.set(key, value)
 
@@ -43,7 +43,7 @@ async def get(key):
 
 
 #we can create a hash 
-@app.get("/createhash")
+@app.post("/createhash")
 async def hset(key, field, value):
         return await redis_cache.hset(key,field, value)
 
