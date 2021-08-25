@@ -30,6 +30,9 @@ class RedisCache:
     async def hvals(self, key):
         return await self.redis_cache.hvals(key)
     
+    async def hget(self, key, field):
+        return await self.redis_cache.hget(key , field)
+    
     async def close(self):
         self.redis_cache.close()
         await self.redis_cache.wait_closed()
