@@ -54,26 +54,28 @@ print(type(decoding_vid)) #string
 
 
 print("Value for the key 3 is")
-
 print(r.hget("26/8/21", "2am"))
 
  
 
 print("The keys present in the Redis hash:")
-
 print(r.hkeys("26/8/21"))
 
  
 
 print("The values present in the Redis hash:")
-
 print(r.hvals("26/8/21"))
 
  
 
 print("The keys and values present in the Redis hash are:")
-
 print(r.hgetall("26/8/21"))
 
 
+# pipe = r.pipeline()
+# for key in sorted(r.scan_iter()):
+#     print(key)
+#     pipe.hvals(key) #or hgetall(key)
 
+# for h in pipe.execute():
+#     print(h)
