@@ -3,3 +3,4 @@ SET key value pair
 GET key value pair
 SET and GET hash values
 Redis Keys
+Pipeline
