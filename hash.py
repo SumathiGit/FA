@@ -38,14 +38,7 @@ r.save
 # Retrieve the value for a specific key
 
 getting_Video1 = r.hget("26/8/21", "12am") #byte
-getting_Video2 = r.hget("26/8/21", "1am")
-getting_Video3 = r.hget("26/8/21", "2am")
-getting_Video4 = r.hget("26/8/21", "3am")
-getting_Video5 = r.hget("26/8/21", "4am")
-getting_Video6 = r.hget("26/8/21", "5am")
-getting_Video7 = r.hget("26/8/21", "6am")
-getting_Video8 = r.hget("26/8/21", "7am")
-getting_Video9 = r.hget("26/8/21", "8am")
+
 
 #Need to decode every single video
 decoding_vid = getting_Video1.decode('utf-8', 'ignore') #\
