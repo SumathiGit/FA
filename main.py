@@ -2,6 +2,8 @@ from fastapi import FastAPI, applications
 from uvicorn import run
 from fastapi import FastAPI, Request, Response
 from connection import redis_cache
+from hash import r
+
 
 app = FastAPI(title="FastAPI with Redis")
 
@@ -20,7 +22,7 @@ async def shutdown_event():
     redis_cache.close()
     await redis_cache.wait_closed()
 
-
+#root
 @app.get("/")
 def read_root():
     return {"Redis": "FastAPI"}
@@ -38,7 +40,7 @@ async def set(key, value):
 #we can get the value for a particular key
 @app.get('/GetValue4Key')
 async def get(key):
-        return await redis_cache.get(key)
+        return await redis_cache.hvals(key)
 
 
 
@@ -48,11 +50,11 @@ async def hset(key, field, value):
         return await redis_cache.hset(key,field, value)
 
 
+
 #we can get the values for a particular hash key with their respective field
 @app.get("/hgetall_hash")
 async def get(key):
         return await redis_cache.hgetall(key)
-
 
 
 #get only values from a particular hash
@@ -65,6 +67,26 @@ async def get(key):
 @app.get("/get_particular_hashvalue")
 async def get(key, field):
         return await redis_cache.hget(key, field)
+
+
+#optional
+@app.get("/sets_of_hash") 
+async def smembers(key):
+        result =redis_cache.smembers(key)
+        return await result
+
+
+@app.get("/lastweek")
+def sort():
+        lastweeklist = r.sort("date", 24, 31, alpha=True) #sorted set key > date
+        pipe = r.pipeline()
+        for keys in lastweeklist:
+                pipe.hgetall(keys)
+        week1 = []
+        for week in pipe.execute():
+                week1.append(week)
+        return week1
+
 
 
 
