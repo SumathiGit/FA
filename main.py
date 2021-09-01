@@ -32,26 +32,26 @@ def read_root():
 async def redis_keys():
     return await get_all()
 
-#we can set a value for a key 
+#set a value for a key 
 @app.post('/create_keyValue')
 async def set(key, value):
         return await redis_cache.set(key, value)
 
-#we can get the value for a particular key
+#get the value for a particular key
 @app.get('/GetValue4Key')
 async def get(key):
         return await redis_cache.hvals(key)
 
 
 
-#we can create a hash 
+#create a hash 
 @app.post("/createhash")
 async def hset(key, field, value):
         return await redis_cache.hset(key,field, value)
 
 
 
-#we can get the values for a particular hash key with their respective field
+#get the values for a particular hash key with their respective field
 @app.get("/hgetall_hash")
 async def get(key):
         return await redis_cache.hgetall(key)
@@ -70,23 +70,34 @@ async def get(key, field):
 
 
 #optional
-@app.get("/sets_of_hash") 
+@app.get("/set_of_hashes") 
 async def smembers(key):
         result =redis_cache.smembers(key)
         return await result
 
 
 @app.get("/lastweek")
-def sort():
-        lastweeklist = r.sort("date", 24, 31, alpha=True) #sorted set key > date
+def sortweek():
+        lastweeklist = r.sort("date", 24, -1, alpha=True) #sorted set key > date
         pipe = r.pipeline()
         for keys in lastweeklist:
-                pipe.hgetall(keys)
+                pipe.hgetall(keys) #hvals > optional
         week1 = []
         for week in pipe.execute():
                 week1.append(week)
         return week1
 
+
+@app.get("/last15days")
+def sortdays():
+        last15dayslist = r.sort("date", 15, -1, alpha=True) #sorted set key > date
+        pipe = r.pipeline()
+        for keys in last15dayslist:
+                pipe.hgetall(keys)
+        last15days = []
+        for days in pipe.execute():
+                last15days.append(days)
+        return last15days
 
 
 
