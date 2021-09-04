@@ -15,3 +15,18 @@ step4:
 
 step5:
 >To run API : uvicorn main:app --reload
+
+
+
+**RedisServer and Redis-cli**
+
+Step1:
+>To start redis server on
+>Terminal : **redis-server**
+
+>To stop  : **sudo service redis-server stop**
+
+>To start redis client on
+>Terminal : **redis-cli**
+
+>Type keys* to get all the keys from the db
