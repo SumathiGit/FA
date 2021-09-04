@@ -1,6 +1,17 @@
-Creating a API using FastAPI with REDIS Database
-SET key value pair 
-GET key value pair
-SET and GET hash values
-Redis Keys
-Pipeline
+**Creating a API using FastAPI with REDIS Database**
+
+
+step1:
+>hash.py >> Create hashes using hset and add them into redis db
+
+step2:
+>Add all the hashes into single set using sadd
+
+step3:
+>connection.py >> made a connection with Redis db using redis_cache
+
+step4:
+>main.py >> Access db with GET,SET,and POST methods
+
+step5:
+>To run API : uvicorn main:app --reload
