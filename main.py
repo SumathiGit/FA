@@ -98,6 +98,19 @@ def sortdays():
         for days in pipe.execute():
                 last15days.append(days)
         return last15days
+    
+   
+#To get all the values between two diff dates
+@app.get("/betweendays")
+def betweendays():
+        bdays = r.sort("date", 25, 30, alpha=True) #25 to 30 (dates)
+        pipe = r.pipeline()
+        for keys in bdays:
+                pipe.hgetall(keys)
+        betwdays = []
+        for days in pipe.execute():
+                betwdays.append(days)
+        return betwdays
 
 
 
